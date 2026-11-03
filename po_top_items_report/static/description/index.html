@@ -1,4 +1,4 @@
-<!-- Odoo Apps description page for po_top_items_report (Odoo 16.0). Inline styles only: apps.odoo.com strips <style> and <script> blocks. -->
+<!-- Odoo Apps description page for po_top_items_report (Odoo 19.0). Inline styles only: apps.odoo.com strips <style> and <script> blocks. -->
 <section style="max-width:1120px;margin:0 auto;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#2b2b33;">
 
 <!-- ============================== HERO ============================== -->
@@ -7,11 +7,11 @@
   <h1 style="font-size:40px;line-height:1.15;font-weight:700;margin:0 0 14px;color:#ffffff;">Top Purchased Items Report</h1>
   <p style="font-size:19px;line-height:1.55;max-width:760px;margin:0 0 24px;color:#ffffff;opacity:.95;">See the items you spend the most on, valued at the prices you actually paid on each purchase order, next to what was received, what is still pending, what was sold and the gross profit. Compare two periods to spot new and lost products at a glance.</p>
   <div>
-    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Odoo 16.0</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Odoo 19.0</span>
     <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Community &amp; Enterprise</span>
     <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Web &middot; PDF &middot; Excel</span>
     <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Arabic (RTL)</span>
-    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">19 automated tests</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">18 automated tests</span>
     <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Technical name: po_top_items_report</span>
   </div>
 </div>
@@ -20,7 +20,7 @@
 <div style="display:flex;flex-wrap:wrap;margin:28px -8px 8px;">
   <div style="flex:1 1 220px;margin:8px;background:#f6f4f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#714B67;">2 report modes</div><div style="font-size:15px;color:#555;">Basic Top N, or a period comparison with new and lost products</div></div>
   <div style="flex:1 1 220px;margin:8px;background:#eef6f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#017E84;">3 outputs</div><div style="font-size:15px;color:#555;">Interactive web view, QWeb PDF and formatted Excel from the same data</div></div>
-  <div style="flex:1 1 220px;margin:8px;background:#f6f4f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#714B67;">&lt; 1 s</div><div style="font-size:15px;color:#555;">A 12-month Top 20 over 1.1 million purchase order lines</div></div>
+  <div style="flex:1 1 220px;margin:8px;background:#f6f4f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#714B67;">1.1 M lines</div><div style="font-size:15px;color:#555;">A 12-month Top 20 in about 1.6&nbsp;s, on a 2-CPU test server</div></div>
   <div style="flex:1 1 220px;margin:8px;background:#eef6f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#017E84;">0 cost guessing</div><div style="font-size:15px;color:#555;">Amounts use actual PO line prices, never the product cost</div></div>
 </div>
 
@@ -29,7 +29,7 @@
 <p style="font-size:16px;color:#555;margin:0 0 18px;">Purchase Analysis tells you what was bought. Buyers and managers also need to know what it earned, what is still missing and what changed since last month, in one list they can print or send.</p>
 <div style="display:flex;flex-wrap:wrap;margin:0 -10px;">
   <div style="flex:1 1 440px;margin:10px;border:1px solid #f1d6d6;background:#fff8f8;border-radius:14px;padding:24px 26px;">
-    <h3 style="font-size:19px;font-weight:700;color:#b33939;margin:0 0 12px;">In standard Odoo 16</h3>
+    <h3 style="font-size:19px;font-weight:700;color:#b33939;margin:0 0 12px;">In standard Odoo 19</h3>
     <ul style="font-size:15px;line-height:1.65;margin:0;padding-left:20px;color:#3a3a42;">
       <li><b>Purchase Analysis</b> is a pivot: getting a <b>Top N</b> list means sorting and trimming it by hand.</li>
       <li>Purchase figures and <b>sales, sale price and gross profit</b> live in separate reports.</li>
@@ -145,10 +145,10 @@
   <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Different units of measure</b><br/><span style="color:#555;">A line of 2 Dozens counts as 24 Units; received and sold quantities are converted the same way.</span></div>
   <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Over-receipts</b><br/><span style="color:#555;">Pending Qty is computed per PO line, so 2 extra units on one order never hide 12 missing on another.</span></div>
   <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Credit notes, drafts and vendor bills</b><br/><span style="color:#555;">Sales are posted customer invoices minus posted credit notes; drafts and vendor bills are ignored.</span></div>
-  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Cancelled orders and RFQs</b><br/><span style="color:#555;">Only confirmed and locked POs count, by confirmation date.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Cancelled orders and RFQs</b><br/><span style="color:#555;">Only confirmed POs count, locked or not, by confirmation date.</span></div>
   <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Time zones</b><br/><span style="color:#555;">Periods follow the user&rsquo;s time zone: a PO confirmed at 01:00 on 1 February in Riyadh belongs to February.</span></div>
   <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Product cost changes</b><br/><span style="color:#555;">Editing a product&rsquo;s cost does not change the report; only PO line prices are used.</span></div>
-  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Large databases</b><br/><span style="color:#555;">All totals are computed in one PostgreSQL query. Measured: 0.94&nbsp;s for 12 months and 1.5&nbsp;s for all data on 1.1 million PO lines.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Large databases</b><br/><span style="color:#555;">All totals are computed in one PostgreSQL query. Measured with Odoo 19&rsquo;s indexes on 1.1 million PO lines: about 1.6&nbsp;s for 12 months and 2.4&nbsp;s for all data (2-CPU test server).</span></div>
 </div>
 
 <!-- ============================== SECURITY ============================== -->
@@ -167,14 +167,14 @@
 <h2 style="font-size:28px;font-weight:700;margin:44px 0 6px;color:#2b2b33;">Technical details</h2>
 <table style="width:100%;border-collapse:collapse;font-size:15px;">
   <tbody>
-    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Odoo version</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">16.0, Community and Enterprise</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Odoo version</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">19.0, Community and Enterprise</td></tr>
     <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Depends on</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;"><code>purchase_stock</code> (Sales app optional: enables the warehouse filter on sales)</td></tr>
     <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Python dependency</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;"><code>xlsxwriter</code> (already required by Odoo)</td></tr>
     <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Menus</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">Purchase &rsaquo; Reporting &rsaquo; Top Purchased Items</td></tr>
     <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Settings</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">None</td></tr>
     <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Models</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;"><code>po.top.items.report.wizard</code> (transient), <code>report.po_top_items_report.report_po_top_items</code></td></tr>
-    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Database</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">Adds one partial index on posted invoice product lines (<code>account_move_line (product_id, date)</code>); removed on uninstall</td></tr>
-    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Automated tests</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">19 tests: actual PO rates in two currencies and two companies, product cost ignored, UoM, receipts with backorder, pending per line, sales net of credit notes, gross profit, Top N and ranking, filters, time zone, comparison statuses and presets, Excel, PDF in English and Arabic, drill-down, validation, company access</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Database</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">No schema changes: sales are read through Odoo 19&rsquo;s own index on <code>account_move_line.product_id</code></td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Automated tests</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">18 tests: actual PO rates in two currencies and two companies, product cost ignored, UoM, receipts with backorder, pending per line, sales net of credit notes, gross profit, Top N and ranking, filters, time zone, comparison statuses and presets, Excel, PDF in English and Arabic, drill-down, validation, company access</td></tr>
     <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Translations</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">Arabic (<code>ar_001</code>), template <code>.pot</code> included</td></tr>
     <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">License</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">OPL-1</td></tr>
   </tbody>

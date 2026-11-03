@@ -1,7 +1,7 @@
 # Part of po_top_items_report. License OPL-1.
 {
     "name": "Top Purchased Items Report",
-    "version": "16.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Inventory/Purchase",
     "summary": "Top N purchased items at actual PO rates: received / pending / "
                "sold quantities, gross profit and period comparison "

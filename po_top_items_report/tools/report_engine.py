@@ -10,7 +10,7 @@ Design notes (large databases, 1M+ purchase / invoice lines):
   Odoo itself stored on the order - and a per-company factor so several
   companies with different currencies roll up into one report currency.
   Product costs (``standard_price``) are never read.
-* Quantities are expressed in the product's base UoM: ``product_uom_qty`` is
+* Quantities are expressed in the product's UoM: ``product_uom_qty`` is
   stored that way by Odoo; the received quantity (stored in the line UoM) is
   converted with the line's own ``product_uom_qty / product_qty`` ratio, which
   avoids joining product / template / UoM tables for every line.
@@ -25,20 +25,21 @@ Design notes (large databases, 1M+ purchase / invoice lines):
 * Line-level arithmetic is done in double precision (as Odoo's own purchase
   analysis does) and rounded only when presented.
 * Sales are only looked up for the Top-N products already selected, through
-  the partial index ``po_top_items_aml_product_date_idx``.
+  Odoo's own ``account_move_line.product_id`` index (17.0+) (the v16 version of this
+  module had to add its own index for this).
 
 The module is deliberately free of ORM imports so it can be unit-tested
 directly against PostgreSQL.
 """
 
 RANK_COLUMNS = ("amount", "qty", "po_count")
-PO_STATES = ("purchase", "done")
+# Odoo 19: the "done" (Locked) state was replaced by the ``locked`` flag on
+# orders in state "purchase", so confirmed and locked orders are both "purchase".
+PO_STATES = ("purchase",)
+# Index created by the v16 version of this module; dropped on uninstall
+# for databases migrated from 16.0.
 SALES_INDEX_NAME = "po_top_items_aml_product_date_idx"
-SALES_INDEX_SQL = f"""
-    CREATE INDEX IF NOT EXISTS {SALES_INDEX_NAME}
-        ON account_move_line (product_id, date)
-     WHERE display_type = 'product' AND parent_state = 'posted'
-"""
+
 
 
 def _fx(company_col):
@@ -84,7 +85,7 @@ def _po_lines_cte(params, period_sql, extra_select="", name="lines", only_from=N
                 ELSE pol.qty_received::float8 * pol.product_uom_qty::float8 / pol.product_qty::float8
            END AS rcv_qty,
            pol.price_subtotal::float8
-               / COALESCE(NULLIF(po.currency_rate, 0), 1.0)
+               / COALESCE(NULLIF(po.currency_rate::float8, 0), 1.0)
                * {_fx("po.company_id")} AS amount{extra_select}
       FROM purchase_order po
       JOIN purchase_order_line pol ON pol.order_id = po.id{joins}
@@ -116,7 +117,8 @@ def _sales_cte(params):
            SUM(CASE WHEN am.move_type = 'out_refund' THEN -1 ELSE 1 END
                * CASE WHEN aml.product_uom_id IS NULL OR aml.product_uom_id = pt.uom_id
                       THEN aml.quantity::float8
-                      ELSE aml.quantity::float8 / NULLIF(lu.factor, 0)::float8 * pu.factor::float8
+                      -- Odoo 19 UoM: qty_in_to = qty * from.factor / to.factor
+                      ELSE aml.quantity::float8 * lu.factor::float8 / NULLIF(pu.factor, 0)::float8
                  END) AS sold_qty,
            SUM(-aml.balance::float8 * {_fx("aml.company_id")}) AS revenue
       FROM top
