@@ -61,7 +61,7 @@ class TestPoTopItemsReport(AccountTestInvoicingCommon):
 
         def product(name, barcode=False, categ=cls.categ_a, ptype="service", cost=999.0):
             return env["product.product"].create({
-                "name": name, "barcode": barcode, "type": ptype, "categ_id": categ.id,
+                "name": name, "barcode": barcode, "detailed_type": ptype, "categ_id": categ.id,
                 "standard_price": cost,  # must never be used by the report
                 "list_price": 1.0, "purchase_method": "purchase",
                 "taxes_id": [Command.clear()], "supplier_taxes_id": [Command.clear()],
@@ -260,11 +260,12 @@ class TestPoTopItemsReport(AccountTestInvoicingCommon):
 
     def test_09_real_stock_receipt_in_dozens(self):
         storable = self.env["product.product"].create({
-            "name": "PTI Storable", "type": "product", "categ_id": self.categ_a.id})
+            "name": "PTI Storable", "detailed_type": "product", "categ_id": self.categ_a.id})
         po = self._po([(storable, 2, 120.0, self.uom_dozen, 0)], "2026-01-21 10:00:00")
         picking = po.picking_ids
         self.assertTrue(picking)
-        picking.move_ids.quantity_done = 1  # 1 Dozen out of 2
+        picking.move_ids.quantity = 1  # 1 Dozen out of 2
+        picking.move_ids.picked = True
         res = picking.button_validate()
         Form(self.env[res["res_model"]].with_context(res["context"])).save().process()
         line = self._lines(self._wizard().get_report_data())[storable.id]
@@ -387,8 +388,3 @@ class TestPoTopItemsReport(AccountTestInvoicingCommon):
         wiz = self._wizard(company_id=other.id)
         with self.assertRaises(AccessError, msg="Report currency company must be allowed too"):
             wiz.get_report_data()
-
-    def test_25_sales_index_exists(self):
-        self.env.cr.execute(
-            "SELECT 1 FROM pg_indexes WHERE indexname = 'po_top_items_aml_product_date_idx'")
-        self.assertTrue(self.env.cr.fetchone())

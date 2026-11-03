@@ -71,15 +71,6 @@ class PoTopItemsReportWizard(models.TransientModel):
     # ------------------------------------------------------------------
     # Setup
     # ------------------------------------------------------------------
-    def init(self):
-        """Partial index used to fetch the sales of the Top-N products.
-
-        Odoo 16 does not index ``account_move_line.product_id``; without it
-        the sales lookup scans every journal item of the period. Only posted
-        product lines are indexed. Runs on install and on every update
-        (``IF NOT EXISTS``); dropped by the uninstall hook."""
-        self.env.cr.execute(report_engine.SALES_INDEX_SQL)
-
     @api.onchange("date_from", "date_to", "compare_preset", "report_type")
     def _onchange_compare_dates(self):
         for wiz in self:

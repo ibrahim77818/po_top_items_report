@@ -1,6 +1,6 @@
 # Top Purchased Items Report (`po_top_items_report`)
 
-Odoo 16 (Community & Enterprise). Adds **Purchase › Reporting › Top Purchased Items**
+Odoo 17 (Community & Enterprise). Adds **Purchase › Reporting › Top Purchased Items**
 without touching the standard purchase reports. Depends only on `purchase_stock`.
 
 ## What it does
@@ -41,33 +41,30 @@ Outputs, all built from one server-side data method (`get_report_data`):
 ## Performance (large databases)
 
 All aggregation is one SQL statement in PostgreSQL; Python only receives the final Top-N rows.
-Measured on PostgreSQL 16, default settings (`work_mem` 4 MB, 2 CPU), with
-**1,131,429 PO lines** (220k POs) and **1,800,000 journal items** (1.2M invoice product lines):
+Measured on PostgreSQL 16, default settings (`work_mem` 4 MB, 2 CPU test server), with
+**1,131,429 PO lines** (220k POs) and **1,800,000 journal items** (1.2M invoice product lines),
+using only Odoo 17's own indexes:
 
-| Scenario | Naive first version | Final |
-|---|---:|---:|
-| Basic, 1 month, Top 20 | 0.42 s | 0.30 s |
-| Basic, 12 months, Top 20 | 3.50 s | **0.94 s** |
-| Basic, all data (1.1M lines), Top 20 | 5.48 s | **1.52 s** |
-| Basic, all data, Top 1000 | 6.55 s | 4.11 s |
-| Comparison, month vs previous month | 0.32 s | 0.31 s |
-| Comparison, 10 months vs previous 12 (all data) | 2.23 s | **0.72 s** |
+| Scenario | Time |
+|---|---:|
+| Basic, 1 month, Top 20 | ~0.4 s |
+| Basic, 12 months, Top 20 | ~1.4 s |
+| Basic, all data (1.1M lines), Top 20 | ~2.4 s |
+| Basic, all data, Top 1000 | ~5.5 s |
+| Comparison, month vs previous month | ~0.45 s |
+| Comparison, 10 months vs previous 12 (all data) | ~1.1 s |
 
-What made the difference:
+How it stays fast:
 
 1. Line math in double precision and no per-row joins to product/UoM tables (received quantity
    is converted with the line's own stored `product_uom_qty / product_qty` ratio).
 2. Currency factors written as a parallel-safe expression so PostgreSQL uses parallel workers.
 3. Distinct PO counts computed only for the Top-N products (instead of grouping every line by
    product and order).
-4. A partial index for the sales lookup, which Odoo 16 does not have:
-   `po_top_items_aml_product_date_idx ON account_move_line (product_id, date)
-   WHERE display_type = 'product' AND parent_state = 'posted'`
-   (≈ 0.7 s / 23 MB to build on 1.8M journal items; dropped on uninstall).
-
-> On very large databases the index is built during installation and briefly blocks writes on
-> `account_move_line`. Install outside business hours, or create it beforehand with
-> `CREATE INDEX CONCURRENTLY` using the definition above; the module skips it if it exists.
+4. Sales are looked up only for the Top-N products through Odoo 17's index on
+   `account_move_line.product_id`. (The 16.0 version added its own partial index because 16.0
+   had none; 17.0 does not need it. The uninstall hook drops that old index if a database
+   migrated from 16.0 still has it.)
 
 ## Security
 
