@@ -4,9 +4,9 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { ControlPanel } from "@web/search/control_panel/control_panel";
 import { formatFloat, formatMonetary } from "@web/views/fields/formatters";
-import { _lt } from "@web/core/l10n/translation";
-
-const { Component, onWillStart, useState } = owl;
+import { _t } from "@web/core/l10n/translation";
+import { Component, onWillStart, useState } from "@odoo/owl";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 const WIZARD_MODEL = "po.top.items.report.wizard";
 
@@ -16,11 +16,15 @@ const WIZARD_MODEL = "po.top.items.report.wizard";
  * only sorts, searches and opens drill-downs.
  */
 export class PoTopItemsReport extends Component {
+    static template = "po_top_items_report.ReportView";
+    static components = { ControlPanel };
+    static props = { ...standardActionServiceProps };
+
     setup() {
         this.orm = useService("orm");
         this.action = useService("action");
         this.notification = useService("notification");
-        this.controlPanelDisplay = { "top-right": false, "bottom-right": false };
+        this.controlPanelDisplay = {};
         this.wizardId = this.props.action.params && this.props.action.params.wizard_id;
         this.state = useState({
             loading: true,
@@ -318,7 +322,7 @@ export class PoTopItemsReport extends Component {
                 res_id: this.wizardId,
                 views: [[false, "form"]],
                 target: "new",
-                name: this.env._t("Top Purchased Items"),
+                name: _t("Top Purchased Items"),
             },
             { onClose: () => this.load() }
         );
@@ -328,9 +332,7 @@ export class PoTopItemsReport extends Component {
     }
 }
 
-PoTopItemsReport.template = "po_top_items_report.ReportView";
-PoTopItemsReport.components = { ControlPanel };
-PoTopItemsReport.expiredMessage = _lt(
+PoTopItemsReport.expiredMessage = _t(
     "This report has expired. Open the filters to run it again."
 );
 

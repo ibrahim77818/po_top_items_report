@@ -71,15 +71,6 @@ class PoTopItemsReportWizard(models.TransientModel):
     # ------------------------------------------------------------------
     # Setup
     # ------------------------------------------------------------------
-    def init(self):
-        """Partial index used to fetch the sales of the Top-N products.
-
-        Odoo 16 does not index ``account_move_line.product_id``; without it
-        the sales lookup scans every journal item of the period. Only posted
-        product lines are indexed. Runs on install and on every update
-        (``IF NOT EXISTS``); dropped by the uninstall hook."""
-        self.env.cr.execute(report_engine.SALES_INDEX_SQL)
-
     @api.onchange("date_from", "date_to", "compare_preset", "report_type")
     def _onchange_compare_dates(self):
         for wiz in self:
@@ -332,7 +323,7 @@ class PoTopItemsReportWizard(models.TransientModel):
         rows = self._fetch_rows()
         labels = self._get_labels()
         currency = self.currency_id
-        lang = self.env["res.lang"]._lang_get(self.env.lang or "en_US")
+        lang = self.env["res.lang"]._get_data(code=self.env.lang or "en_US")
         data = {
             "wizard_id": self.id,
             "report_type": self.report_type,
@@ -544,7 +535,7 @@ class PoTopItemsReportWizard(models.TransientModel):
                 "type": "ir.actions.act_window",
                 "name": _("Sales of %s", product.display_name),
                 "res_model": "account.move.line",
-                "view_mode": "tree,form",
+                "view_mode": "list,form",
                 "views": [(self.env.ref("account.view_move_line_tree").id, "list"), (False, "form")],
                 "domain": domain,
                 "context": {"create": False},
@@ -565,7 +556,7 @@ class PoTopItemsReportWizard(models.TransientModel):
             "type": "ir.actions.act_window",
             "name": _("Purchases of %s", product.display_name),
             "res_model": "purchase.order.line",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "views": [(self.env.ref("purchase.purchase_order_line_tree").id, "list"),
                       (False, "form")],
             "domain": domain,

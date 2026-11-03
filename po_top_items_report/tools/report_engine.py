@@ -25,7 +25,8 @@ Design notes (large databases, 1M+ purchase / invoice lines):
 * Line-level arithmetic is done in double precision (as Odoo's own purchase
   analysis does) and rounded only when presented.
 * Sales are only looked up for the Top-N products already selected, through
-  the partial index ``po_top_items_aml_product_date_idx``.
+  Odoo's own ``account_move_line.product_id`` index (17.0+) (the v16 version of this
+  module had to add its own index for this).
 
 The module is deliberately free of ORM imports so it can be unit-tested
 directly against PostgreSQL.
@@ -33,12 +34,10 @@ directly against PostgreSQL.
 
 RANK_COLUMNS = ("amount", "qty", "po_count")
 PO_STATES = ("purchase", "done")
+# Index created by the v16 version of this module; dropped on uninstall
+# for databases migrated from 16.0.
 SALES_INDEX_NAME = "po_top_items_aml_product_date_idx"
-SALES_INDEX_SQL = f"""
-    CREATE INDEX IF NOT EXISTS {SALES_INDEX_NAME}
-        ON account_move_line (product_id, date)
-     WHERE display_type = 'product' AND parent_state = 'posted'
-"""
+
 
 
 def _fx(company_col):
@@ -84,7 +83,7 @@ def _po_lines_cte(params, period_sql, extra_select="", name="lines", only_from=N
                 ELSE pol.qty_received::float8 * pol.product_uom_qty::float8 / pol.product_qty::float8
            END AS rcv_qty,
            pol.price_subtotal::float8
-               / COALESCE(NULLIF(po.currency_rate, 0), 1.0)
+               / COALESCE(NULLIF(po.currency_rate::float8, 0), 1.0)
                * {_fx("po.company_id")} AS amount{extra_select}
       FROM purchase_order po
       JOIN purchase_order_line pol ON pol.order_id = po.id{joins}

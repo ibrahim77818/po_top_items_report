@@ -1,7 +1,8 @@
 # Part of po_top_items_report. License OPL-1.
 """Calculation tests for the Top Purchased Items report.
 
-Scenario (report company: company_1 in USD; Gold company: 1 USD = 2 Gold;
+Scenario (report company: company_1 in USD; second company in EUR,
+1 USD = 2 EUR via the standard test rates of ``setup_other_currency``;
 user timezone Asia/Riyadh, UTC+3). Current period = January 2026,
 comparison period = December 2025.
 
@@ -9,8 +10,8 @@ comparison period = December 2025.
 PO     company    currency    lines                                  approved
 =====  =========  ==========  =====================================  ========
 PO1    company_1  USD         P1 10 @ 10 (rcv 10), P2 5 @ 20 (rcv 2)  Jan 05
-PO2    company_1  Gold (x2)   P1 2 Dozens @ 180 Gold (rcv 1 Dozen)    Jan 10
-PO3    gold co.   Gold        P1 5 @ 11 Gold (rcv 7 = over-receipt)   Jan 15
+PO2    company_1  EUR (x2)    P1 2 Dozens @ 180 EUR (rcv 1 Dozen)     Jan 10
+PO3    EUR co.    EUR         P1 5 @ 11 EUR (rcv 7 = over-receipt)    Jan 15
 PO4    company_1  USD         P1 100 @ 10 - CANCELLED                 Jan 16
 PO5    company_1  USD         P1 8 @ 9, P3 4 @ 50                     Dec 10
 PO6    company_1  USD (WH2)   P4 3 @ 30                               Jan 20
@@ -20,7 +21,7 @@ PO7    company_1  USD         P2 1 @ 20 at 2026-01-31 22:00 UTC       Feb 01
 
 Customer invoices (January): company_1 P1 6 @ 20 + 1 Dozen @ 250, credit
 note P1 2 @ 20, draft invoice P1 50 (ignored), vendor bill P1 (ignored);
-Gold company P2 3 @ 50 Gold.
+EUR company P2 3 @ 50 EUR.
 """
 import base64
 
@@ -35,24 +36,23 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestPoTopItemsReport(AccountTestInvoicingCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def get_default_groups(cls):
+        return (super().get_default_groups()
+                | cls.env.ref("purchase.group_purchase_manager")
+                | cls.env.ref("stock.group_stock_manager")
+                | cls.env.ref("stock.group_stock_multi_warehouses"))
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
         env = cls.env
-        cls.env.user.write({
-            "tz": "Asia/Riyadh",
-            "groups_id": [
-                Command.link(env.ref("purchase.group_purchase_manager").id),
-                Command.link(env.ref("stock.group_stock_manager").id),
-                Command.link(env.ref("stock.group_stock_multi_warehouses").id),
-            ],
-        })
+        cls.env.user.tz = "Asia/Riyadh"
         cls.company = cls.company_data["company"]
         cls.usd = cls.company.currency_id
-        cls.gold = cls.currency_data["currency"]  # 1 USD = 2 Gold (2017 rate onwards)
-        cls.gold_company_data = cls.setup_company_data(
-            "Gold Company", currency_id=cls.gold.id)
-        cls.gold_company = cls.gold_company_data["company"]
-        cls.env.user.company_ids |= cls.gold_company
+        # Odoo 18 test rates: 1 USD = 2 EUR from 2017 onwards (rates of company_1)
+        cls.gold = cls.setup_other_currency("EUR")
+        cls.gold_company = cls._create_company(name="PTI EUR Company", currency_id=cls.gold.id)
+        cls.gold_company_data = cls.collect_company_accounting_data(cls.gold_company)
 
         cls.uom_unit = env.ref("uom.product_uom_unit")
         cls.uom_dozen = env.ref("uom.product_uom_dozen")
@@ -181,7 +181,7 @@ class TestPoTopItemsReport(AccountTestInvoicingCommon):
                          [self.p1.id, self.p2.id, self.p4.id],
                          "Ranked by amount; cancelled POs, December and the post-midnight PO excluded")
         p1 = self._lines(data)[self.p1.id]
-        # 100 USD + 360 Gold / 2 + 55 Gold (Gold company) / 2
+        # 100 USD + 360 EUR / 2 + 55 EUR (EUR company) / 2
         self.assertAlmostEqual(p1["purchased_amount"], 100 + 180 + 27.5)
         self.assertAlmostEqual(p1["purchased_qty"], 10 + 24 + 5, msg="Dozens converted to units")
         self.assertEqual(p1["po_count"], 3)
@@ -216,7 +216,7 @@ class TestPoTopItemsReport(AccountTestInvoicingCommon):
         self.assertAlmostEqual(p1["gross_profit"], 330 - 16 * (307.5 / 39))
         p2 = lines[self.p2.id]
         self.assertAlmostEqual(p2["sold_qty"], 3)
-        self.assertAlmostEqual(p2["revenue"], 75.0, msg="150 Gold -> 75 USD")
+        self.assertAlmostEqual(p2["revenue"], 75.0, msg="150 EUR -> 75 USD")
         self.assertAlmostEqual(p2["gross_profit"], 75 - 3 * 20)
         self.assertEqual(lines[self.p4.id]["sold_qty"], 0)
         self.assertIsNone(lines[self.p4.id]["gp_margin"])
@@ -247,7 +247,7 @@ class TestPoTopItemsReport(AccountTestInvoicingCommon):
         data = self._wizard(company_id=self.gold_company.id,
                             company_ids=[Command.set(self.gold_company.ids)]).get_report_data()
         p1 = self._lines(data)[self.p1.id]
-        self.assertAlmostEqual(p1["purchased_amount"], 55.0, msg="Reported in Gold")
+        self.assertAlmostEqual(p1["purchased_amount"], 55.0, msg="Reported in EUR")
         self.assertEqual(data["currency"]["id"], self.gold.id)
 
     def test_08_timezone_boundary(self):
@@ -260,11 +260,12 @@ class TestPoTopItemsReport(AccountTestInvoicingCommon):
 
     def test_09_real_stock_receipt_in_dozens(self):
         storable = self.env["product.product"].create({
-            "name": "PTI Storable", "type": "product", "categ_id": self.categ_a.id})
+            "name": "PTI Storable", "type": "consu", "is_storable": True, "categ_id": self.categ_a.id})
         po = self._po([(storable, 2, 120.0, self.uom_dozen, 0)], "2026-01-21 10:00:00")
         picking = po.picking_ids
         self.assertTrue(picking)
-        picking.move_ids.quantity_done = 1  # 1 Dozen out of 2
+        picking.move_ids.quantity = 1  # 1 Dozen out of 2
+        picking.move_ids.picked = True
         res = picking.button_validate()
         Form(self.env[res["res_model"]].with_context(res["context"])).save().process()
         line = self._lines(self._wizard().get_report_data())[storable.id]
@@ -387,8 +388,3 @@ class TestPoTopItemsReport(AccountTestInvoicingCommon):
         wiz = self._wizard(company_id=other.id)
         with self.assertRaises(AccessError, msg="Report currency company must be allowed too"):
             wiz.get_report_data()
-
-    def test_25_sales_index_exists(self):
-        self.env.cr.execute(
-            "SELECT 1 FROM pg_indexes WHERE indexname = 'po_top_items_aml_product_date_idx'")
-        self.assertTrue(self.env.cr.fetchone())

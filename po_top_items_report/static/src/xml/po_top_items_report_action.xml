@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="po_top_items_report.SortableHeader" owl="1">
+    <t t-name="po_top_items_report.SortableHeader">
         <th t-attf-class="o_pti_th #{col.cls or 'text-end'}" t-on-click="() => this.onSort(col.key)">
             <span t-esc="col.label"/>
             <i t-att-class="sortIcon(col.key)" class="ms-1"/>
         </th>
     </t>
 
-    <t t-name="po_top_items_report.ItemCell" owl="1">
+    <t t-name="po_top_items_report.ItemCell">
         <td class="o_pti_item">
             <div class="fw-semibold" t-esc="line.name"/>
             <div class="o_pti_meta">
@@ -18,9 +18,9 @@
         </td>
     </t>
 
-    <div t-name="po_top_items_report.ReportView" class="o_action o_pti_view" owl="1">
+    <div t-name="po_top_items_report.ReportView" class="o_action o_pti_view">
         <ControlPanel display="controlPanelDisplay">
-            <t t-set-slot="control-panel-bottom-left-buttons">
+            <t t-set-slot="control-panel-always-buttons">
                 <div class="o_cp_buttons d-flex gap-1" role="toolbar">
                     <button class="btn btn-primary" t-on-click="onClickFilters">
                         <i class="fa fa-sliders me-1"/>Filters
