@@ -1,0 +1,192 @@
+<!-- Odoo Apps description page for po_top_items_report (Odoo 16.0). Inline styles only: apps.odoo.com strips <style> and <script> blocks. -->
+<section style="max-width:1120px;margin:0 auto;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#2b2b33;">
+
+<!-- ============================== HERO ============================== -->
+<div style="background:linear-gradient(120deg,#017E84 0%,#3d6b78 45%,#714B67 100%);border-radius:18px;padding:48px 40px 40px;color:#ffffff;margin-top:12px;">
+  <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.85;margin-bottom:10px;">Purchase &middot; Reporting &middot; Analytics</div>
+  <h1 style="font-size:40px;line-height:1.15;font-weight:700;margin:0 0 14px;color:#ffffff;">Top Purchased Items Report</h1>
+  <p style="font-size:19px;line-height:1.55;max-width:760px;margin:0 0 24px;color:#ffffff;opacity:.95;">See the items you spend the most on, valued at the prices you actually paid on each purchase order, next to what was received, what is still pending, what was sold and the gross profit. Compare two periods to spot new and lost products at a glance.</p>
+  <div>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Odoo 16.0</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Community &amp; Enterprise</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Web &middot; PDF &middot; Excel</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Arabic (RTL)</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">19 automated tests</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Technical name: po_top_items_report</span>
+  </div>
+</div>
+
+<!-- ============================== KEY NUMBERS ============================== -->
+<div style="display:flex;flex-wrap:wrap;margin:28px -8px 8px;">
+  <div style="flex:1 1 220px;margin:8px;background:#f6f4f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#714B67;">2 report modes</div><div style="font-size:15px;color:#555;">Basic Top N, or a period comparison with new and lost products</div></div>
+  <div style="flex:1 1 220px;margin:8px;background:#eef6f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#017E84;">3 outputs</div><div style="font-size:15px;color:#555;">Interactive web view, QWeb PDF and formatted Excel from the same data</div></div>
+  <div style="flex:1 1 220px;margin:8px;background:#f6f4f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#714B67;">&lt; 1 s</div><div style="font-size:15px;color:#555;">A 12-month Top 20 over 1.1 million purchase order lines</div></div>
+  <div style="flex:1 1 220px;margin:8px;background:#eef6f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#017E84;">0 cost guessing</div><div style="font-size:15px;color:#555;">Amounts use actual PO line prices, never the product cost</div></div>
+</div>
+
+<!-- ============================== WHY ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">Why this module</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">Purchase Analysis tells you what was bought. Buyers and managers also need to know what it earned, what is still missing and what changed since last month, in one list they can print or send.</p>
+<div style="display:flex;flex-wrap:wrap;margin:0 -10px;">
+  <div style="flex:1 1 440px;margin:10px;border:1px solid #f1d6d6;background:#fff8f8;border-radius:14px;padding:24px 26px;">
+    <h3 style="font-size:19px;font-weight:700;color:#b33939;margin:0 0 12px;">In standard Odoo 16</h3>
+    <ul style="font-size:15px;line-height:1.65;margin:0;padding-left:20px;color:#3a3a42;">
+      <li><b>Purchase Analysis</b> is a pivot: getting a <b>Top N</b> list means sorting and trimming it by hand.</li>
+      <li>Purchase figures and <b>sales, sale price and gross profit</b> live in separate reports.</li>
+      <li>Computing ordered &minus; received over a product <b>nets an over-receipt</b> on one PO against a shortage on another.</li>
+      <li>The pivot comparison shows two columns but does not <b>flag new or lost products</b>.</li>
+      <li>One average price hides <b>price variations</b> between purchase orders.</li>
+      <li>The pivot export is a raw grid: no KPIs, totals layout or <b>Arabic right-to-left</b> report.</li>
+    </ul>
+  </div>
+  <div style="flex:1 1 440px;margin:10px;border:1px solid #cfe7e7;background:#f4fbfb;border-radius:14px;padding:24px 26px;">
+    <h3 style="font-size:19px;font-weight:700;color:#017E84;margin:0 0 12px;">With this module</h3>
+    <ul style="font-size:15px;line-height:1.65;margin:0;padding-left:20px;color:#3a3a42;">
+      <li>Pick <b>Number of Items</b> (1&ndash;1000) and <b>Rank By</b> amount, quantity or number of POs.</li>
+      <li><b>Sold Qty</b>, <b>Sale Rate</b>, <b>Gross Profit</b> and <b>GP %</b> sit on the same row as the purchases.</li>
+      <li><b>Pending Qty</b> is computed per PO line, so every shortage stays visible.</li>
+      <li>Status badges <b>New</b>, <b>Increase</b>, <b>Decrease</b>, <b>No Change</b> and a separate <b>Lost Products</b> table.</li>
+      <li><b>Avg PO Rate</b> with the <b>min &ndash; max</b> range paid across the period&rsquo;s purchase orders.</li>
+      <li>Branded <b>PDF</b> and <b>Excel</b> with KPIs and totals, fully translated and mirrored in Arabic.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================== HOW IT WORKS ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">How it works</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">One wizard, one data engine, three outputs.</p>
+<div style="display:flex;flex-wrap:wrap;margin:0 -8px;">
+  <div style="flex:1 1 200px;margin:8px;border-radius:12px;border:1px solid #e3dde2;padding:18px;"><div style="width:34px;height:34px;border-radius:50%;background:#714B67;color:#fff;font-weight:700;text-align:center;line-height:34px;margin-bottom:10px;">1</div><div style="font-weight:700;margin-bottom:4px;">Open</div><div style="font-size:14px;color:#555;">Purchase &rsaquo; Reporting &rsaquo; Top Purchased Items.</div></div>
+  <div style="flex:1 1 200px;margin:8px;border-radius:12px;border:1px solid #e3dde2;padding:18px;"><div style="width:34px;height:34px;border-radius:50%;background:#714B67;color:#fff;font-weight:700;text-align:center;line-height:34px;margin-bottom:10px;">2</div><div style="font-weight:700;margin-bottom:4px;">Filter</div><div style="font-size:14px;color:#555;">Choose Basic or Comparison, the period, Top N, ranking, companies, warehouses and categories.</div></div>
+  <div style="flex:1 1 200px;margin:8px;border-radius:12px;border:1px solid #e3dde2;padding:18px;"><div style="width:34px;height:34px;border-radius:50%;background:#714B67;color:#fff;font-weight:700;text-align:center;line-height:34px;margin-bottom:10px;">3</div><div style="font-weight:700;margin-bottom:4px;">Explore</div><div style="font-size:14px;color:#555;">Sort any column, search by item or barcode, click a figure to open the purchase or invoice lines behind it.</div></div>
+  <div style="flex:1 1 200px;margin:8px;border-radius:12px;border:1px solid #cfe7e7;background:#f4fbfb;padding:18px;"><div style="width:34px;height:34px;border-radius:50%;background:#017E84;color:#fff;font-weight:700;text-align:center;line-height:34px;margin-bottom:10px;">4</div><div style="font-weight:700;margin-bottom:4px;">Share</div><div style="font-size:14px;color:#555;">Print the PDF or export Excel with one click, in the user&rsquo;s language.</div></div>
+</div>
+
+<!-- ============================== FEATURES ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:44px 0 6px;color:#2b2b33;">Features</h2>
+<p style="font-size:16px;color:#555;margin:0 0 4px;">Screenshots use demo data: a Jeddah trading company in SAR with 36 products, purchases in September and October 2026 (some from a USD vendor and some in Dozens), partial receipts, customer invoices and a credit note.</p>
+
+<div style="margin:36px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Menu &amp; filters</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Everything is set in one wizard</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Open <b>Purchase &rsaquo; Reporting &rsaquo; Top Purchased Items</b>. Choose <b>Report Type</b> (<b>Basic</b> or <b>Comparison</b>), the <b>Period</b>, and in comparison mode <b>Compare With</b> <b>Previous Period</b>, <b>Same Period Last Year</b> or <b>Custom</b> dates. Set <b>Number of Items</b> and <b>Rank By</b> (<b>Purchased Amount</b>, <b>Purchased Quantity</b> or <b>Number of POs</b>), then narrow by <b>Companies</b>, <b>Warehouses</b> and <b>Product Categories</b> (sub-categories included). <b>View Report</b>, <b>PDF</b> and <b>Excel</b> are in the footer. The standard purchase reports are not changed.</p>
+  <img src="pti_01_wizard.png" alt="Top Purchased Items wizard with report type, period, comparison, ranking and scope filters" style="width:100%;max-width:1000px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 1</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Your top items, at the prices you really paid</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Each row shows <b>Item</b>, <b>Barcode</b>, <b>Purchased Qty</b>, <b>Purchased Amount</b>, <b>Avg PO Rate</b> with its min &ndash; max range, <b>No. of POs</b>, <b>Received Qty</b>, <b>Pending Qty</b>, <b>Sold Qty</b>, <b>Sale Rate</b>, <b>Gross Profit</b> and <b>GP %</b>. KPI cards above the table show <b>Items Purchased</b>, <b>Total Purchases</b>, the <b>Top N share</b> of all purchases and the <b>Gross Profit</b> of the listed items.</p>
+  <img src="pti_02_web_basic.png" alt="Basic report web view with KPI cards and the top 15 items" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+  <div style="background:#f4fbfb;border-left:4px solid #017E84;border-radius:8px;padding:16px 20px;font-size:15px;line-height:1.6;margin-top:18px;"><b>How the figures are computed.</b> <b>Purchased Amount</b> = sum of each confirmed PO line&rsquo;s subtotal (after discount, before tax) &divide; the currency rate stored on that PO. <b>Sale Rate</b> = revenue of posted customer invoices minus credit notes &divide; <b>Sold Qty</b>. <b>Gross Profit</b> = revenue &minus; Sold Qty &times; Avg PO Rate.<br/><b>Example:</b> 30 EV chargers sold for 296,198.82&nbsp;SR, bought at an average of 7,136.93&nbsp;SR: 296,198.82 &minus; 30 &times; 7,136.93 &asymp; <b>82,090.92&nbsp;SR</b> (the report shows 82,090.95&nbsp;SR because it keeps the average rate at full precision).</div>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 2</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Sort, search and drill down</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Click any column header to sort; a third click returns to the report ranking. Here the list is sorted by <b>Pending Qty</b> to see what still has to be received. Type in the search box to filter by item name or barcode; the totals row follows the visible rows. Click <b>Purchased Amount</b>, <b>No. of POs</b> or <b>Sold Qty</b> to open the purchase order lines or customer invoice lines behind the number.</p>
+  <img src="pti_03_web_sorted.png" alt="Web view sorted by pending quantity" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 3</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Compare two periods: new, up, down</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">The <b>Comparison</b> report ranks the current period&rsquo;s top items and puts the comparison period next to it: <b>Qty</b>, <b>Amount</b>, <b>PO Rate</b> and <b>POs</b> for both periods, <b>Qty Change %</b> and <b>Rate Change %</b>. A <b>Status</b> badge marks each item <b>New</b>, <b>Increase</b>, <b>Decrease</b> or <b>No Change</b>. Price rises are shown in red, because paying more is bad news for purchasing. KPI cards count items in both periods, <b>New Products</b>, <b>Lost Products</b> and the change in total purchases.</p>
+  <img src="pti_04_web_comparison.png" alt="Comparison report with status badges and both periods side by side" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 4</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Lost products are listed, not forgotten</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Items bought in the comparison period but not in the current one appear in their own <b>Lost Products</b> table, with the quantity, amount, PO rate and number of POs of the comparison period. Useful to catch a supplier switch, a discontinued line or a reorder that was missed.</p>
+  <img src="pti_05_web_lost.png" alt="Lost products table under the comparison report" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 5</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Printable PDF in A4 landscape</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">The <b>PDF</b> button prints the same report with your company layout: filters, KPI cards, the full table with totals and, in comparison mode, the lost products. Pending quantities are highlighted and negative profits shown in red. In Arabic the report is right-to-left.</p>
+  <img src="pti_07_pdf.png" alt="PDF report of the top purchased items" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 6</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Excel ready to work with</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">The <b>Excel</b> button downloads an <b>.xlsx</b> with the filters, KPI cards, frozen header row and auto-filter. Totals use <b>SUBTOTAL</b> formulas, so they follow the rows you filter in Excel, and every number keeps a number format. Comparison exports add a <b>Lost Products</b> sheet.</p>
+  <img src="pti_08_excel.png" alt="Excel export with KPIs, header row and totals" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 7</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Fully in Arabic, right-to-left</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">All labels, statuses, KPI names, messages and the wizard are translated (<b>ar_001</b>). In Arabic the web view, the PDF and the Excel sheets are mirrored right-to-left.</p>
+  <img src="pti_06_web_arabic.png" alt="Comparison report in Arabic, right-to-left" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);margin-bottom:22px;"/>
+  <img src="pti_09_excel_arabic.png" alt="Arabic Excel export with a right-to-left sheet" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<!-- ============================== STATUSES ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:44px 0 6px;color:#2b2b33;">Comparison statuses</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">Each item of the current period gets one status, decided on purchased quantity.</p>
+<div style="font-size:15px;line-height:1.6;">
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#d1fae5;color:#047857;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">New</span> bought in the current period, not in the comparison period</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#dbeafe;color:#1d4ed8;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Increase</span> more quantity than in the comparison period</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#fef3c7;color:#b45309;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Decrease</span> less quantity than in the comparison period</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#eef0f2;color:#555;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">No Change</span> same quantity, within the unit-of-measure precision</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#fee2e2;color:#b91c1c;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Lost</span> bought in the comparison period only (separate table)</div>
+</div>
+<div style="background:#f4fbfb;border-left:4px solid #017E84;border-radius:8px;padding:16px 20px;font-size:15px;line-height:1.6;margin-top:14px;"><b>Rate Change %</b> = (PO Rate current &minus; PO Rate comparison) &divide; PO Rate comparison &times; 100. A new product has no comparison rate, so it shows &ldquo;&ndash;&rdquo; instead of a misleading 0.</div>
+
+<!-- ============================== CORNER CASES ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:44px 0 6px;color:#2b2b33;">Built for real-world corner cases</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">The first eight are checked by the automated tests; the last was measured on a database with 1.1 million purchase order lines.</p>
+<div style="display:flex;flex-wrap:wrap;margin:0 -8px;font-size:15px;line-height:1.55;">
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Purchase orders in a foreign currency</b><br/><span style="color:#555;">Converted with the rate stored on each PO when it was created, not today&rsquo;s rate.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Several companies, several currencies</b><br/><span style="color:#555;">Pick the companies and a <b>Report Company</b>; every amount is converted to its currency.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Different units of measure</b><br/><span style="color:#555;">A line of 2 Dozens counts as 24 Units; received and sold quantities are converted the same way.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Over-receipts</b><br/><span style="color:#555;">Pending Qty is computed per PO line, so 2 extra units on one order never hide 12 missing on another.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Credit notes, drafts and vendor bills</b><br/><span style="color:#555;">Sales are posted customer invoices minus posted credit notes; drafts and vendor bills are ignored.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Cancelled orders and RFQs</b><br/><span style="color:#555;">Only confirmed and locked POs count, by confirmation date.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Time zones</b><br/><span style="color:#555;">Periods follow the user&rsquo;s time zone: a PO confirmed at 01:00 on 1 February in Riyadh belongs to February.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Product cost changes</b><br/><span style="color:#555;">Editing a product&rsquo;s cost does not change the report; only PO line prices are used.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Large databases</b><br/><span style="color:#555;">All totals are computed in one PostgreSQL query. Measured: 0.94&nbsp;s for 12 months and 1.5&nbsp;s for all data on 1.1 million PO lines.</span></div>
+</div>
+
+<!-- ============================== SECURITY ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:44px 0 6px;color:#2b2b33;">Security</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">The report shows purchase prices and margins, so it follows the standard Purchase reporting access.</p>
+<table style="width:100%;border-collapse:collapse;font-size:15px;">
+  <thead><tr style="background:#714B67;color:#fff;"><th style="text-align:left;padding:10px 14px;">Who</th><th style="text-align:left;padding:10px 14px;">Sees</th></tr></thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;"><b>Purchase / Administrator</b></td><td style="padding:10px 14px;">The menu, the wizard and all three outputs</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;"><b>Other users</b></td><td style="padding:10px 14px;">No menu and no access to the wizard</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;"><b>Multi-company</b></td><td style="padding:10px 14px;">Only companies the user is allowed in can be selected; every run checks the selected companies and the report company</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================== TECHNICAL ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:44px 0 6px;color:#2b2b33;">Technical details</h2>
+<table style="width:100%;border-collapse:collapse;font-size:15px;">
+  <tbody>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Odoo version</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">16.0, Community and Enterprise</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Depends on</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;"><code>purchase_stock</code> (Sales app optional: enables the warehouse filter on sales)</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Python dependency</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;"><code>xlsxwriter</code> (already required by Odoo)</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Menus</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">Purchase &rsaquo; Reporting &rsaquo; Top Purchased Items</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Settings</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">None</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Models</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;"><code>po.top.items.report.wizard</code> (transient), <code>report.po_top_items_report.report_po_top_items</code></td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Database</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">Adds one partial index on posted invoice product lines (<code>account_move_line (product_id, date)</code>); removed on uninstall</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Automated tests</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">19 tests: actual PO rates in two currencies and two companies, product cost ignored, UoM, receipts with backorder, pending per line, sales net of credit notes, gross profit, Top N and ranking, filters, time zone, comparison statuses and presets, Excel, PDF in English and Arabic, drill-down, validation, company access</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">Translations</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">Arabic (<code>ar_001</code>), template <code>.pot</code> included</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;vertical-align:top;">License</td><td style="padding:10px 14px;overflow-wrap:anywhere;word-break:break-word;">OPL-1</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================== CONTACT ============================== -->
+<div style="margin:52px 0 40px;background:linear-gradient(120deg,#714B67 0%,#017E84 100%);border-radius:18px;padding:36px 40px;color:#fff;">
+  <h2 style="font-size:26px;font-weight:700;margin:0 0 8px;color:#fff;">Support &amp; customization</h2>
+  <p style="font-size:16px;line-height:1.6;margin:0 0 20px;color:#fff;opacity:.95;">Questions, a demo, or an adaptation to your own process? Get in touch.</p>
+  <a href="mailto:ibrahim.yahiah@gmail.com" style="display:inline-block;background:#fff;color:#714B67;font-weight:700;text-decoration:none;border-radius:8px;padding:12px 22px;margin:0 12px 10px 0;">&#9993;&nbsp; ibrahim.yahiah@gmail.com</a>
+  <a href="https://www.linkedin.com/in/ibrahim-yahia" target="_blank" rel="noopener" style="display:inline-block;border:2px solid #fff;color:#fff;font-weight:700;text-decoration:none;border-radius:8px;padding:10px 22px;margin:0 0 10px 0;">LinkedIn: Ibrahim Yahia</a>
+  <p style="font-size:13px;margin:14px 0 0;opacity:.8;color:#fff;">Author: Ibrahim Yahia &middot; License: OPL-1</p>
+</div>
+
+</section>

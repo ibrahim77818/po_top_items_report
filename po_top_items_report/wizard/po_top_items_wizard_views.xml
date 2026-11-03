@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_po_top_items_wizard_form" model="ir.ui.view">
+        <field name="name">po.top.items.report.wizard.form</field>
+        <field name="model">po.top.items.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Top Purchased Items">
+                <sheet>
+                    <field name="report_type" widget="radio" options="{'horizontal': true}"/>
+                    <group>
+                        <group string="Period">
+                            <label for="date_from" string="Period"/>
+                            <div class="o_row">
+                                <field name="date_from" class="oe_inline"/>
+                                <i class="fa fa-long-arrow-right mx-2" aria-label="to" title="to"/>
+                                <field name="date_to" class="oe_inline"/>
+                            </div>
+                            <field name="compare_preset" attrs="{'invisible': [('report_type', '!=', 'comparison')]}"/>
+                            <label for="compare_date_from" string="Comparison Period"
+                                   attrs="{'invisible': [('report_type', '!=', 'comparison')]}"/>
+                            <div class="o_row" attrs="{'invisible': [('report_type', '!=', 'comparison')]}">
+                                <field name="compare_date_from" class="oe_inline"
+                                       attrs="{'required': [('report_type', '=', 'comparison')],
+                                               'readonly': [('compare_preset', '!=', 'custom')]}"
+                                       force_save="1"/>
+                                <i class="fa fa-long-arrow-right mx-2" aria-label="to" title="to"/>
+                                <field name="compare_date_to" class="oe_inline"
+                                       attrs="{'required': [('report_type', '=', 'comparison')],
+                                               'readonly': [('compare_preset', '!=', 'custom')]}"
+                                       force_save="1"/>
+                            </div>
+                        </group>
+                        <group string="Ranking">
+                            <field name="limit"/>
+                            <field name="rank_by"/>
+                        </group>
+                        <group string="Scope">
+                            <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"
+                                   options="{'no_create': True}"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="warehouse_ids" widget="many2many_tags" groups="stock.group_stock_multi_warehouses"
+                                   options="{'no_create': True}"/>
+                            <field name="categ_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                        <group string="Notes">
+                            <div colspan="2" class="text-muted small">
+                                <p class="mb-1">Amounts use the actual unit prices of confirmed purchase order lines (after discount, before taxes), converted with each order's currency rate. Product costs are not used.</p>
+                                <p class="mb-1">Sold quantity, sale rate and gross profit come from posted customer invoices net of credit notes. Gross profit = sales revenue − sold quantity × average PO rate.</p>
+                                <p class="mb-0">Pending quantity is computed per PO line and does not net over-receipts against other orders.</p>
+                            </div>
+                        </group>
+                    </group>
+                    <field name="currency_id" invisible="1"/>
+                    <!-- used by the warehouse domain; must exist for single-company users too -->
+                    <field name="company_ids" invisible="1"/>
+                </sheet>
+                <footer>
+                    <button name="action_view" string="View Report" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button name="action_print_pdf" string="PDF" type="object" icon="fa-file-pdf-o" class="btn-secondary" data-hotkey="w"/>
+                    <button name="action_export_xlsx" string="Excel" type="object" icon="fa-file-excel-o" class="btn-secondary" data-hotkey="e"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_po_top_items_wizard" model="ir.actions.act_window">
+        <field name="name">Top Purchased Items</field>
+        <field name="res_model">po.top.items.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_po_top_items_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_po_top_items_report"
+              name="Top Purchased Items"
+              parent="purchase.purchase_report_main"
+              action="action_po_top_items_wizard"
+              sequence="110"
+              groups="purchase.group_purchase_manager"/>
+</odoo>

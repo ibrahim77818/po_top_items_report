@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="po_top_items_report.SortableHeader" owl="1">
+        <th t-attf-class="o_pti_th #{col.cls or 'text-end'}" t-on-click="() => this.onSort(col.key)">
+            <span t-esc="col.label"/>
+            <i t-att-class="sortIcon(col.key)" class="ms-1"/>
+        </th>
+    </t>
+
+    <t t-name="po_top_items_report.ItemCell" owl="1">
+        <td class="o_pti_item">
+            <div class="fw-semibold" t-esc="line.name"/>
+            <div class="o_pti_meta">
+                <span t-if="line.barcode" class="o_pti_barcode"><i class="fa fa-barcode me-1"/><t t-esc="line.barcode"/></span>
+                <span class="o_pti_uom" t-esc="line.uom"/>
+            </div>
+        </td>
+    </t>
+
+    <div t-name="po_top_items_report.ReportView" class="o_action o_pti_view" owl="1">
+        <ControlPanel display="controlPanelDisplay">
+            <t t-set-slot="control-panel-bottom-left-buttons">
+                <div class="o_cp_buttons d-flex gap-1" role="toolbar">
+                    <button class="btn btn-primary" t-on-click="onClickFilters">
+                        <i class="fa fa-sliders me-1"/>Filters
+                    </button>
+                    <button class="btn btn-secondary" t-on-click="onClickPdf" t-att-disabled="state.error or state.busy">
+                        <i class="fa fa-file-pdf-o me-1"/>PDF
+                    </button>
+                    <button class="btn btn-secondary" t-on-click="onClickXlsx" t-att-disabled="state.error or state.busy">
+                        <i class="fa fa-file-excel-o me-1"/>Excel
+                    </button>
+                    <button class="btn btn-light" t-on-click="onClickRefresh" title="Refresh" t-att-disabled="state.error">
+                        <i class="fa fa-refresh"/>
+                    </button>
+                </div>
+            </t>
+        </ControlPanel>
+
+        <div class="o_content o_pti_content">
+            <div t-if="state.loading" class="o_pti_loading text-muted p-5 text-center">
+                <i class="fa fa-circle-o-notch fa-spin fa-2x"/>
+            </div>
+
+            <div t-elif="state.error" class="alert alert-warning m-4">
+                <i class="fa fa-clock-o me-2"/>
+                <t t-esc="expiredMessage"/>
+            </div>
+
+            <div t-else="" class="o_pti_page" t-att-dir="data.direction">
+                <!-- Header -->
+                <div class="o_pti_header d-flex flex-wrap justify-content-between align-items-start gap-3">
+                    <div>
+                        <h2 class="o_pti_title mb-1" t-esc="data.title"/>
+                        <div class="o_pti_filters">
+                            <span t-foreach="data.filters" t-as="flt" t-key="flt_index" class="o_pti_chip">
+                                <span class="text-muted" t-esc="flt.label"/>: <t t-esc="flt.value"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="o_pti_search">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text"><i class="fa fa-search"/></span>
+                            <input type="search" class="form-control" placeholder="Search item or barcode..."
+                                   t-on-input="onSearch" t-att-value="state.search"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPIs -->
+                <div class="o_pti_kpis" t-if="data.kpis.length">
+                    <div t-foreach="data.kpis" t-as="kpi" t-key="kpi_index"
+                         t-attf-class="o_pti_kpi o_pti_kpi_#{kpi.tone or 'default'}">
+                        <div class="o_pti_kpi_label" t-esc="kpi.label"/>
+                        <div class="o_pti_kpi_value" t-esc="fmtKpi(kpi)"/>
+                    </div>
+                </div>
+
+                <div t-if="!data.lines.length and !data.lost_lines.length" class="o_pti_empty text-muted">
+                    <i class="fa fa-inbox fa-2x d-block mb-2"/>
+                    <t t-esc="labels.no_data"/>
+                </div>
+
+                <!-- Basic table -->
+                <div t-if="!isComparison and data.lines.length" class="o_pti_table_wrap">
+                    <table class="table table-sm table-hover o_pti_table">
+                        <thead>
+                            <tr>
+                                <t t-call="po_top_items_report.SortableHeader">
+                                    <t t-set="col" t-value="{ key: 'rank', label: labels.rank, cls: 'text-center' }"/>
+                                </t>
+                                <t t-call="po_top_items_report.SortableHeader">
+                                    <t t-set="col" t-value="{ key: 'name', label: labels.item, cls: 'text-start' }"/>
+                                </t>
+                                <t t-foreach="basicColumns" t-as="col" t-key="col.key">
+                                    <t t-call="po_top_items_report.SortableHeader"/>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-if="hasSearch and !lines.length">
+                                <td colspan="20" class="text-muted text-center py-3">No item matches this search.</td>
+                            </tr>
+                            <tr t-foreach="lines" t-as="line" t-key="line.product_id">
+                                <td class="text-center text-muted o_pti_rank" t-esc="line.rank"/>
+                                <t t-call="po_top_items_report.ItemCell"/>
+                                <t t-foreach="basicColumns" t-as="col" t-key="col.key">
+                                    <td t-att-class="cellClass(col, line)" t-on-click="() => this.onDrill(col, line)">
+                                        <t t-esc="fmtValue(col, line)"/>
+                                        <div t-if="col.type === 'rate' and hasRange(line)" class="o_pti_range">
+                                            <t t-esc="fmtMoney(line.min_rate)"/> – <t t-esc="fmtMoney(line.max_rate)"/>
+                                        </div>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td/>
+                                <td class="fw-bold" t-esc="labels.total"/>
+                                <t t-foreach="basicColumns" t-as="col" t-key="col.key">
+                                    <td class="text-end text-nowrap fw-bold">
+                                        <t t-if="col.type !== 'rate' and col.key !== 'sale_rate' and footTotals[col.key] !== undefined"
+                                           t-esc="fmtValue(col, footTotals)"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Comparison table -->
+                <div t-if="isComparison and data.lines.length" class="o_pti_table_wrap">
+                    <table class="table table-sm table-hover o_pti_table">
+                        <thead>
+                            <tr>
+                                <t t-call="po_top_items_report.SortableHeader">
+                                    <t t-set="col" t-value="{ key: 'rank', label: labels.rank, cls: 'text-center' }"/>
+                                </t>
+                                <t t-call="po_top_items_report.SortableHeader">
+                                    <t t-set="col" t-value="{ key: 'name', label: labels.item, cls: 'text-start' }"/>
+                                </t>
+                                <t t-call="po_top_items_report.SortableHeader">
+                                    <t t-set="col" t-value="{ key: 'status', label: labels.status, cls: 'text-center' }"/>
+                                </t>
+                                <t t-foreach="comparisonColumns" t-as="col" t-key="col.key">
+                                    <t t-call="po_top_items_report.SortableHeader"/>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-if="hasSearch and !lines.length">
+                                <td colspan="20" class="text-muted text-center py-3">No item matches this search.</td>
+                            </tr>
+                            <tr t-foreach="lines" t-as="line" t-key="line.product_id">
+                                <td class="text-center text-muted o_pti_rank" t-esc="line.rank"/>
+                                <t t-call="po_top_items_report.ItemCell"/>
+                                <td class="text-center">
+                                    <span t-attf-class="o_pti_badge o_pti_badge_#{line.status}" t-esc="line.status_label"/>
+                                </td>
+                                <t t-foreach="comparisonColumns" t-as="col" t-key="col.key">
+                                    <td t-att-class="cellClass(col, line)" t-on-click="() => this.onDrill(col, line)"
+                                        t-esc="fmtValue(col, line)"/>
+                                </t>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td/>
+                                <td class="fw-bold" t-esc="labels.total"/>
+                                <td/>
+                                <t t-foreach="comparisonColumns" t-as="col" t-key="col.key">
+                                    <td class="text-end text-nowrap fw-bold">
+                                        <t t-if="footTotals[col.key] !== undefined" t-esc="fmtValue(col, footTotals)"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Lost products -->
+                <div t-if="isComparison and data.lost_lines.length" class="o_pti_lost">
+                    <h4 class="o_pti_section"><i class="fa fa-arrow-circle-down me-2"/><t t-esc="labels.lost_title"/></h4>
+                    <p class="text-muted small mb-2" t-esc="labels.lost_help"/>
+                    <div class="o_pti_table_wrap">
+                        <table class="table table-sm table-hover o_pti_table o_pti_table_lost">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" t-esc="labels.rank"/>
+                                    <th class="text-start" t-esc="labels.item"/>
+                                    <t t-foreach="lostColumns" t-as="col" t-key="col.key">
+                                        <t t-call="po_top_items_report.SortableHeader"/>
+                                    </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="lostLines" t-as="line" t-key="line.product_id">
+                                    <td class="text-center text-muted o_pti_rank" t-esc="line.rank"/>
+                                    <t t-call="po_top_items_report.ItemCell"/>
+                                    <t t-foreach="lostColumns" t-as="col" t-key="col.key">
+                                        <td t-att-class="cellClass(col, line)" t-on-click="() => this.onDrill(col, line)"
+                                            t-esc="fmtValue(col, line)"/>
+                                    </t>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td/>
+                                    <td class="fw-bold" t-esc="labels.total"/>
+                                    <t t-foreach="lostColumns" t-as="col" t-key="col.key">
+                                        <td class="text-end text-nowrap fw-bold">
+                                            <t t-if="lostFootTotals[col.key] !== undefined" t-esc="fmtValue(col, lostFootTotals)"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="o_pti_footer text-muted small">
+                    <t t-esc="data.company_name"/> · <t t-esc="labels.generated"/> <t t-esc="data.generated_at"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</templates>

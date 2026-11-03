@@ -1,0 +1,688 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* po_top_items_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-03 12:00+0000\n"
+"PO-Revision-Date: 2026-11-03 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "#"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "All"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Amount (Comparison)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Amount (Current)"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,help:po_top_items_report.field_po_top_items_report_wizard__company_id
+msgid "Amounts of all selected companies are converted to this company's currency."
+msgstr ""
+
+#. module: po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+msgid "Amounts use the actual unit prices of confirmed purchase order lines (after discount, before taxes), converted with each order's currency rate. Product costs are not used."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Avg PO Rate"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Barcode"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields.selection,name:po_top_items_report.selection__po_top_items_report_wizard__report_type__basic
+msgid "Basic"
+msgstr ""
+
+#. module: po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Change %"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__company_ids
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Companies"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__compare_preset
+msgid "Compare With"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields.selection,name:po_top_items_report.selection__po_top_items_report_wizard__report_type__comparison
+msgid "Comparison"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__compare_date_from
+msgid "Comparison From"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Comparison Period"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__compare_date_to
+msgid "Comparison To"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__currency_id
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Currency"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields.selection,name:po_top_items_report.selection__po_top_items_report_wizard__compare_preset__custom
+msgid "Custom"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Decrease"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-javascript
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+#: code:addons/po_top_items_report/static/src/xml/po_top_items_report_action.xml:0
+msgid "Excel"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__xlsx_file
+msgid "Excel File"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-javascript
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+#: code:addons/po_top_items_report/static/src/xml/po_top_items_report_action.xml:0
+msgid "Filters"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__date_from
+msgid "From"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Generated on"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "GP %"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Gross Profit"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Gross Profit (Top Items)"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,help:po_top_items_report.field_po_top_items_report_wizard__categ_ids
+msgid "Includes sub-categories. Leave empty for all products."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Increase"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Item"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Items (Comparison)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Items (Current)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Items Purchased"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Lost"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Lost Products"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Max PO Rate"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Min PO Rate"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "New"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "New Products"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "No Change"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "No confirmed purchase order matches these filters."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-javascript
+#: code:addons/po_top_items_report/static/src/xml/po_top_items_report_action.xml:0
+msgid "No item matches this search."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "No. of POs"
+msgstr ""
+
+#. module: po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+msgid "Notes"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__limit
+msgid "Number of Items"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,help:po_top_items_report.field_po_top_items_report_wizard__limit
+msgid "Number of items to show (Top N). Maximum 1000."
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields.selection,name:po_top_items_report.selection__po_top_items_report_wizard__rank_by__po_count
+msgid "Number of POs"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-javascript
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+#: code:addons/po_top_items_report/static/src/xml/po_top_items_report_action.xml:0
+msgid "PDF"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Pending Qty"
+msgstr ""
+
+#. module: po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+msgid "Pending quantity is computed per PO line and does not net over-receipts against other orders."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Period"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Please select at least one company."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Please set the comparison period."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "PO Rate (Comparison)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "PO Rate (Current)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "POs (Comparison)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "POs (Current)"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields.selection,name:po_top_items_report.selection__po_top_items_report_wizard__compare_preset__previous_period
+msgid "Previous Period"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__categ_ids
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Product Categories"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: model:ir.model.fields.selection,name:po_top_items_report.selection__po_top_items_report_wizard__rank_by__amount
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Purchased Amount"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Purchased in the comparison period but not in the current period."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Purchased Qty"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields.selection,name:po_top_items_report.selection__po_top_items_report_wizard__rank_by__qty
+msgid "Purchased Quantity"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Purchases (Comparison)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Purchases (Current)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+#, python-format
+msgid "Purchases of %s"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,help:po_top_items_report.field_po_top_items_report_wizard__warehouse_ids
+msgid "Purchases: POs delivered to these warehouses. Sales: customer invoice lines linked to sale orders of these warehouses (requires the Sales app). Leave empty for all warehouses."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Qty (Comparison)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Qty (Current)"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Qty Change"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Qty Change %"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__rank_by
+msgid "Rank By"
+msgstr ""
+
+#. module: po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+msgid "Ranking"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Rate Change %"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Received Qty"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-javascript
+#: code:addons/po_top_items_report/static/src/xml/po_top_items_report_action.xml:0
+msgid "Refresh"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__company_id
+msgid "Report Company"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__report_type
+msgid "Report Type"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Sale Rate"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+#, python-format
+msgid "Sales of %s"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields.selection,name:po_top_items_report.selection__po_top_items_report_wizard__compare_preset__previous_year
+msgid "Same Period Last Year"
+msgstr ""
+
+#. module: po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+msgid "Scope"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-javascript
+#: code:addons/po_top_items_report/static/src/xml/po_top_items_report_action.xml:0
+msgid "Search item or barcode..."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Sold Qty"
+msgstr ""
+
+#. module: po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+msgid "Sold quantity, sale rate and gross profit come from posted customer invoices net of credit notes. Gross profit = sales revenue − sold quantity × average PO rate."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Status"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "The comparison start date must be before its end date."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+#, python-format
+msgid "The number of items must be between 1 and %s."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "The start date must be before the end date."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "This product no longer exists."
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-javascript
+#: code:addons/po_top_items_report/static/src/js/po_top_items_report_action.js:0
+msgid "This report has expired. Open the filters to run it again."
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__date_to
+msgid "To"
+msgstr ""
+
+#. module: po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+msgid "to"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Top"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+#, python-format
+msgid "Top %s Share"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Top Items"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-javascript
+#. odoo-python
+#: model:ir.actions.act_window,name:po_top_items_report.action_po_top_items_wizard
+#: model:ir.actions.report,name:po_top_items_report.action_report_po_top_items
+#: model:ir.ui.menu,name:po_top_items_report.menu_po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+#: code:addons/po_top_items_report/static/src/js/po_top_items_report_action.js:0
+msgid "Top Purchased Items"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Top Purchased Items - Period Comparison"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model,name:po_top_items_report.model_report_po_top_items_report_report_po_top_items
+msgid "Top Purchased Items PDF Report"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model,name:po_top_items_report.model_po_top_items_report_wizard
+msgid "Top Purchased Items Report"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Total"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Total Purchases"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "UoM"
+msgstr ""
+
+#. module: po_top_items_report
+#: model_terms:ir.ui.view,arch_db:po_top_items_report.view_po_top_items_wizard_form
+msgid "View Report"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__warehouse_ids
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+msgid "Warehouses"
+msgstr ""
+
+#. module: po_top_items_report
+#: model:ir.model.fields,field_description:po_top_items_report.field_po_top_items_report_wizard__xlsx_filename
+msgid "Xlsx Filename"
+msgstr ""
+
+#. module: po_top_items_report
+#. odoo-python
+#: code:addons/po_top_items_report/wizard/po_top_items_wizard.py:0
+#, python-format
+msgid "You are not allowed to report on: %s"
+msgstr ""

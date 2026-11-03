@@ -1,0 +1,80 @@
+// Top Purchased Items - backend web view
+.o_pti_view {
+    .o_pti_content { overflow: auto; background: $o-view-background-color; }
+    .o_pti_page { padding: 16px 24px 32px; max-width: 1800px; }
+    .o_pti_title { color: $o-brand-odoo; font-weight: 700; }
+    .o_pti_filters { display: flex; flex-wrap: wrap; gap: 6px; }
+    .o_pti_chip {
+        background: $gray-100;
+        border: 1px solid $gray-300;
+        border-radius: 12px;
+        padding: 1px 10px;
+        font-size: 0.85em;
+    }
+    .o_pti_search { min-width: 260px; }
+
+    .o_pti_kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 12px;
+        margin: 18px 0;
+    }
+    .o_pti_kpi {
+        border: 1px solid $gray-300;
+        border-top: 3px solid $o-brand-odoo;
+        border-radius: 6px;
+        padding: 10px 14px;
+        background: $white;
+    }
+    .o_pti_kpi_success { border-top-color: $success; }
+    .o_pti_kpi_danger { border-top-color: $danger; }
+    .o_pti_kpi_label { color: $text-muted; font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.03em; }
+    .o_pti_kpi_value { font-size: 1.45em; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
+
+    .o_pti_table_wrap { overflow-x: auto; border: 1px solid $gray-300; border-radius: 6px; }
+    .o_pti_table {
+        margin-bottom: 0;
+        font-variant-numeric: tabular-nums;
+        thead th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background: $gray-100;
+            border-bottom: 2px solid $o-brand-odoo;
+            white-space: nowrap;
+            vertical-align: bottom;
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.85em;
+        }
+        tfoot td { background: $gray-100; border-top: 2px solid $o-brand-odoo; }
+        td { vertical-align: middle; }
+    }
+    .o_pti_table_lost thead th { border-bottom-color: $danger; }
+    .o_pti_sort_idle { opacity: 0.25; }
+    .o_pti_rank { width: 40px; }
+    .o_pti_item { min-width: 220px; }
+    .o_pti_meta { font-size: 0.8em; color: $text-muted; display: flex; gap: 10px; }
+    .o_pti_uom { border: 1px solid $gray-300; border-radius: 3px; padding: 0 4px; }
+    .o_pti_range { font-size: 0.75em; color: $text-muted; font-weight: 400; }
+    .o_pti_warn { color: $warning; font-weight: 600; }
+    .o_pti_drill { cursor: pointer; &:hover { text-decoration: underline; color: $o-brand-primary; } }
+
+    .o_pti_badge {
+        display: inline-block;
+        padding: 1px 8px;
+        border-radius: 10px;
+        font-size: 0.8em;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+    .o_pti_badge_new { background: #D1E7DD; color: #0F5132; }
+    .o_pti_badge_up { background: #E8F3EE; color: #146C43; }
+    .o_pti_badge_down { background: #FBE9EB; color: #842029; }
+    .o_pti_badge_same { background: $gray-200; color: $text-muted; }
+    .o_pti_badge_lost { background: #F8D7DA; color: #842029; }
+
+    .o_pti_section { color: $danger; margin-top: 28px; }
+    .o_pti_empty { padding: 48px; text-align: center; }
+    .o_pti_footer { margin-top: 16px; }
+}

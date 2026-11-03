@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_po_top_items" model="ir.actions.report">
+        <field name="name">Top Purchased Items</field>
+        <field name="model">po.top.items.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">po_top_items_report.report_po_top_items</field>
+        <field name="report_file">po_top_items_report.report_po_top_items</field>
+        <field name="print_report_name">'Top Purchased Items %s - %s' % (object.date_from, object.date_to)</field>
+        <field name="paperformat_id" ref="paperformat_po_top_items_landscape"/>
+    </record>
+
+    <!-- Number helpers -->
+    <template id="pti_money">
+        <t t-if="value is None">-</t>
+        <span t-else="" t-out="value" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+    </template>
+    <template id="pti_qty">
+        <span t-out="value" t-options="{'widget': 'float', 'precision': rd['qty_digits']}"/>
+    </template>
+    <template id="pti_th">
+        <t t-foreach="rd['header_lines'][key]" t-as="part"><t t-out="part"/><br t-if="not part_last"/></t>
+    </template>
+    <template id="pti_pct">
+        <t t-set="invert" t-value="invert or False"/>
+        <t t-if="value is None">-</t>
+        <t t-else=""><span t-attf-class="#{'o_pti_neg' if (value &gt; 0 if invert else value &lt; 0) else ''}"><t t-out="'%.1f' % value"/>%</span></t>
+    </template>
+
+    <template id="report_po_top_items_document">
+        <t t-call="web.external_layout">
+            <t t-set="rd" t-value="report_data[doc.id]"/>
+            <t t-set="L" t-value="rd['labels']"/>
+            <div class="page o_pti_report" t-att-dir="rd['direction']">
+                <div class="o_pti_head">
+                    <h3 class="o_pti_title" t-out="rd['title']"/>
+                    <table class="o_pti_filters">
+                        <tr t-foreach="rd['filters']" t-as="flt">
+                            <th t-out="flt['label']"/>
+                            <td t-out="flt['value']"/>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="o_pti_kpis" t-if="rd['kpis']">
+                    <tr>
+                        <td t-foreach="rd['kpis']" t-as="kpi" t-attf-class="o_pti_kpi o_pti_kpi_#{kpi.get('tone', 'default')}">
+                            <div class="o_pti_kpi_label" t-out="kpi['label']"/>
+                            <div class="o_pti_kpi_value">
+                                <t t-if="kpi['type'] == 'amount'" t-call="po_top_items_report.pti_money"><t t-set="value" t-value="kpi['value']"/></t>
+                                <t t-elif="kpi['type'] == 'pct'" t-call="po_top_items_report.pti_pct"><t t-set="value" t-value="kpi['value']"/></t>
+                                <t t-else="" t-out="'{:,}'.format(kpi['value'])"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <p t-if="not rd['lines'] and not rd['lost_lines']" class="o_pti_empty" t-out="L['no_data']"/>
+
+                <!-- ============ BASIC ============ -->
+                <table t-if="rd['report_type'] == 'basic' and rd['lines']" class="o_pti_table">
+                    <thead>
+                        <tr>
+                            <th class="o_pti_c"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'rank'"/></t></th>
+                            <th class="o_pti_txt"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'item'"/></t></th>
+                            <th class="o_pti_txt"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'barcode'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'purchased_qty'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'purchased_amount'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'avg_rate'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'po_count'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'received_qty'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'pending_qty'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'sold_qty'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'sale_rate'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'gross_profit'"/></t></th>
+                            <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'gp_margin'"/></t></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="rd['lines']" t-as="line">
+                            <td class="o_pti_c o_pti_rank" t-out="line['rank']"/>
+                            <td class="o_pti_txt">
+                                <div t-foreach="line['name_lines']" t-as="part" class="o_pti_name" t-out="part"/>
+                                <span class="o_pti_uom" t-out="line['uom']"/>
+                            </td>
+                            <td class="o_pti_txt o_pti_mono" t-out="line['barcode']"/>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="line['purchased_qty']"/></t></td>
+                            <td class="o_pti_num o_pti_strong"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['purchased_amount']"/></t></td>
+                            <td class="o_pti_num">
+                                <t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['avg_rate']"/></t>
+                                <div t-if="line['max_rate'] - line['min_rate'] &gt; 0.0001" class="o_pti_range">
+                                    <t t-out="'%.2f' % line['min_rate']"/> – <t t-out="'%.2f' % line['max_rate']"/>
+                                </div>
+                            </td>
+                            <td class="o_pti_num" t-out="line['po_count']"/>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="line['received_qty']"/></t></td>
+                            <td t-attf-class="o_pti_num #{'o_pti_warn' if line['pending_qty'] else ''}"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="line['pending_qty']"/></t></td>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="line['sold_qty']"/></t></td>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['sale_rate']"/></t></td>
+                            <td t-attf-class="o_pti_num o_pti_strong #{'o_pti_neg' if line['gross_profit'] &lt; 0 else ''}"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['gross_profit']"/></t></td>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_pct"><t t-set="value" t-value="line['gp_margin']"/></t></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <t t-set="T" t-value="rd['totals']"/>
+                        <tr>
+                            <td colspan="3" class="o_pti_txt" t-out="L['total']"/>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="T['purchased_qty']"/></t></td>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="T['purchased_amount']"/></t></td>
+                            <td/>
+                            <td class="o_pti_num" t-out="int(T['po_count'])"/>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="T['received_qty']"/></t></td>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="T['pending_qty']"/></t></td>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="T['sold_qty']"/></t></td>
+                            <td/>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="T['gross_profit']"/></t></td>
+                            <td class="o_pti_num"><t t-call="po_top_items_report.pti_pct"><t t-set="value" t-value="T['gp_margin']"/></t></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <!-- ============ COMPARISON ============ -->
+                <t t-if="rd['report_type'] == 'comparison'">
+                    <table t-if="rd['lines']" class="o_pti_table">
+                        <thead>
+                            <tr>
+                                <th class="o_pti_c"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'rank'"/></t></th>
+                                <th class="o_pti_txt"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'item'"/></t></th>
+                                <th class="o_pti_c"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'status'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'qty_a'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'qty_b'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'qty_diff_pct'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'amount_a'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'amount_b'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'rate_a'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'rate_b'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'rate_diff_pct'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'po_a'"/></t></th>
+                                <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'po_b'"/></t></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rd['lines']" t-as="line">
+                                <td class="o_pti_c o_pti_rank" t-out="line['rank']"/>
+                                <td class="o_pti_txt">
+                                    <div t-foreach="line['name_lines']" t-as="part" class="o_pti_name" t-out="part"/>
+                                    <span class="o_pti_uom" t-out="line['uom']"/>
+                                    <div t-if="line['barcode']" class="o_pti_sub o_pti_mono" t-out="line['barcode']"/>
+                                </td>
+                                <td class="o_pti_c"><span t-attf-class="o_pti_badge o_pti_badge_#{line['status']}" t-out="line['status_label']"/></td>
+                                <td class="o_pti_num o_pti_strong"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="line['qty_a']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="line['qty_b']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_pct"><t t-set="value" t-value="line['qty_diff_pct']"/></t></td>
+                                <td class="o_pti_num o_pti_strong"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['amount_a']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['amount_b']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['rate_a']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['rate_b']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_pct"><t t-set="value" t-value="line['rate_diff_pct']"/><t t-set="invert" t-value="True"/></t></td>
+                                <td class="o_pti_num" t-out="line['po_a']"/>
+                                <td class="o_pti_num" t-out="line['po_b']"/>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <t t-set="T" t-value="rd['totals']"/>
+                            <tr>
+                                <td colspan="3" class="o_pti_txt" t-out="L['total']"/>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="T['qty_a']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="T['qty_b']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_pct"><t t-set="value" t-value="T['qty_diff_pct']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="T['amount_a']"/></t></td>
+                                <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="T['amount_b']"/></t></td>
+                                <td/><td/><td/>
+                                <td class="o_pti_num" t-out="int(T['po_a'])"/>
+                                <td class="o_pti_num" t-out="int(T['po_b'])"/>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <t t-if="rd['lost_lines']">
+                        <h4 class="o_pti_section" t-out="L['lost_title']"/>
+                        <p class="o_pti_help" t-out="L['lost_help']"/>
+                        <table class="o_pti_table o_pti_table_lost">
+                            <thead>
+                                <tr>
+                                    <th class="o_pti_c"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'rank'"/></t></th>
+                                    <th class="o_pti_txt"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'item'"/></t></th>
+                                    <th class="o_pti_txt"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'barcode'"/></t></th>
+                                    <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'qty_b'"/></t></th>
+                                    <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'amount_b'"/></t></th>
+                                    <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'rate_b'"/></t></th>
+                                    <th class="o_pti_num"><t t-call="po_top_items_report.pti_th"><t t-set="key" t-value="'po_b'"/></t></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="rd['lost_lines']" t-as="line">
+                                    <td class="o_pti_c o_pti_rank" t-out="line['rank']"/>
+                                    <td class="o_pti_txt">
+                                        <div t-foreach="line['name_lines']" t-as="part" class="o_pti_name" t-out="part"/>
+                                        <span class="o_pti_uom" t-out="line['uom']"/>
+                                    </td>
+                                    <td class="o_pti_txt o_pti_mono" t-out="line['barcode']"/>
+                                    <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="line['qty_b']"/></t></td>
+                                    <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['amount_b']"/></t></td>
+                                    <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="line['rate_b']"/></t></td>
+                                    <td class="o_pti_num" t-out="line['po_b']"/>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <t t-set="T" t-value="rd['lost_totals']"/>
+                                <tr>
+                                    <td colspan="3" class="o_pti_txt" t-out="L['total']"/>
+                                    <td class="o_pti_num"><t t-call="po_top_items_report.pti_qty"><t t-set="value" t-value="T['qty_b']"/></t></td>
+                                    <td class="o_pti_num"><t t-call="po_top_items_report.pti_money"><t t-set="value" t-value="T['amount_b']"/></t></td>
+                                    <td/>
+                                    <td class="o_pti_num" t-out="int(T['po_b'])"/>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_po_top_items">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="po_top_items_report.report_po_top_items_document"/>
+            </t>
+        </t>
+    </template>
+</odoo>

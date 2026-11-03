@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_po_top_items_report_wizard_manager,po.top.items.report.wizard manager,model_po_top_items_report_wizard,purchase.group_purchase_manager,1,1,1,1
